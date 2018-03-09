@@ -6,8 +6,11 @@ using namespace std;
 
 Bullet::Bullet(float player_x, float player_y)
 {
-	shape = sf::CircleShape(10.f);
-	shape.setFillColor(sf::Color::Red);
+	b.loadFromFile("image/bullet.png");
+	//cout << "Load " << endl;
+	shape = sf::Sprite(b);
+	shape.rotate(90);
+	shape.scale(sf::Vector2f(0.5f, 0.5f));
 	m_x = player_x;
 	m_y = player_y;
 	shape.setPosition(m_x, m_y);
@@ -49,7 +52,17 @@ float Bullet::getX()
 	return m_x;
 }
 
+sf::Sprite Bullet::getSprite()
+{
+	return shape;
+}
+
 float Bullet::getY()
 {
 	return m_y;
+}
+
+void Bullet::setAlive(bool i)
+{
+	Status = i;
 }

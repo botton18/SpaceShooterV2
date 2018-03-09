@@ -7,7 +7,9 @@ class Bullet
 private:
 	float m_x;
 	float m_y;
-	sf::CircleShape shape;
+	//sf::CircleShape shape;
+	sf::Texture b;
+	sf::Sprite shape;
 	bool Status;
 
 public:
@@ -18,6 +20,8 @@ public:
 	bool isAlive();
 	float getX();
 	float getY();
+	sf::Sprite getSprite();
+	void setAlive(bool);
 };
 
 #endif
