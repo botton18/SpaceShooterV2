@@ -31,12 +31,16 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 3000), "Space Shooter!");
 	//Bullet bullet(400.f,700.f);
-	Player player(200.f,200.f); 
+	Player player(800.f,800.f); 
 	float bullet_timer = 0;
 	float enemy_timer = 0;
 	float etime = 0;
 	sf::Clock clock;
-	//Enemy e;
+	sf::Texture background;
+	background.loadFromFile("image/background.jpg");
+	sf::Sprite b(background);
+	
+
 
 	while (window.isOpen())
 	{
@@ -44,14 +48,14 @@ int main()
 		clock.restart();
 		bullet_timer += time;
 		enemy_timer += time;
-		//float delay = 0.2;
+		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		//e.Update();
+		
 		player.HandleInput(bullet_timer);
 		player.Update(Enemy_List);
 		
@@ -60,12 +64,12 @@ int main()
 			SpawnEnemy(1);
 			enemy_timer = 0;
 		}
-		//bullet.UpdatePosition();
+		
 		window.clear();
-		//bullet.DrawBullet(window);
+		window.draw(b);
 		player.DrawPlayer(window);
 		drawEnemyList(window);
-		//e.DrawEnemy(window);
+		//window.draw(b);
 		window.display();
 	}
 	return 0;
