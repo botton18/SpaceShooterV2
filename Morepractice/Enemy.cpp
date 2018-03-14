@@ -11,7 +11,6 @@ Enemy::Enemy()
     srand(time(NULL));
     int random = rand() % 2;
     int randompos = rand() % 800;
-    //cout << random << " " << randompos << endl;
     if(random == 0)
     {
         a1.loadFromFile("image/astroid1.png");
@@ -22,7 +21,6 @@ Enemy::Enemy()
     }
     astroid = sf::Sprite(a1);
     m_x = randompos;
-    //m_x = 1;
     m_y = -100;
     astroid.setPosition(sf::Vector2f(m_x, m_y));
 }
@@ -35,7 +33,6 @@ void Enemy::Update()
     {
         Status = false;
     }
-
 }
 void Enemy::DrawEnemy(sf::RenderWindow & win)
 {

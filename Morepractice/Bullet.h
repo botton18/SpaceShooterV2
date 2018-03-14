@@ -7,7 +7,6 @@ class Bullet
 private:
 	float m_x;
 	float m_y;
-	//sf::CircleShape shape;
 	sf::Texture b;
 	sf::Sprite shape;
 	bool Status;

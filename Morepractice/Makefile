@@ -1,5 +1,6 @@
 All: main
 	./a.out
+	
 main: Bullet 
 	g++ Main.cpp Player.o Bullet.o Enemy.o -lsfml-graphics -lsfml-window -lsfml-system
 

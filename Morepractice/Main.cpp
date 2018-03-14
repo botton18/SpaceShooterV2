@@ -5,6 +5,9 @@
 
 vector<Enemy*> Enemy_List;
 
+sf::Texture h;
+
+
 void SpawnEnemy(int n)
 {
 	Enemy *e = new Enemy();
@@ -30,17 +33,15 @@ void drawEnemyList(sf::RenderWindow & win)
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 3000), "Space Shooter!");
-	//Bullet bullet(400.f,700.f);
 	Player player(800.f,800.f); 
 	float bullet_timer = 0;
 	float enemy_timer = 0;
 	float etime = 0;
+	float lifetimer = 0;
 	sf::Clock clock;
 	sf::Texture background;
 	background.loadFromFile("image/background.jpg");
 	sf::Sprite b(background);
-	
-
 
 	while (window.isOpen())
 	{
@@ -48,6 +49,7 @@ int main()
 		clock.restart();
 		bullet_timer += time;
 		enemy_timer += time;
+		lifetimer += time;
 		
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -58,6 +60,7 @@ int main()
 		
 		player.HandleInput(bullet_timer);
 		player.Update(Enemy_List);
+		player.Collide(Enemy_List, lifetimer);
 		
 		if(enemy_timer > 0.5)
 		{
@@ -69,7 +72,6 @@ int main()
 		window.draw(b);
 		player.DrawPlayer(window);
 		drawEnemyList(window);
-		//window.draw(b);
 		window.display();
 	}
 	return 0;

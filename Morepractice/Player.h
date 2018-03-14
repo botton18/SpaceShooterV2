@@ -10,7 +10,6 @@ using namespace std;
 class Player
 {
     private:
-        //sf::RectangleShape playerShape;
         sf::Sprite playerShape;
         sf::Texture red_ship;
         float m_x;
@@ -18,6 +17,9 @@ class Player
         bool Status;
         bool canShoot;
         vector<Bullet*> Bullet_List;
+        int score;
+        int life;
+        bool canLoseLife;
 
     public:
         Player(float x, float y);
@@ -25,6 +27,9 @@ class Player
         void Update(vector<Enemy*> &l);
         void Shoot();
         void DrawPlayer(sf::RenderWindow & win);
+        void Collide(vector<Enemy*> &l, float & timer);
+        void updateLife(float & timer);
+
         
         
 };

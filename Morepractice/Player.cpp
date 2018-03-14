@@ -11,12 +11,13 @@ Player::Player(float x, float y)
 {
 
     red_ship.loadFromFile("image/red_fighter.png");
-    //cout << "Load " << endl;
     playerShape = sf::Sprite(red_ship);
     playerShape.scale(sf::Vector2f(0.5f, 0.5f));
     m_x = x;
     m_y = y;
-
+    score = 0;
+    life = 3;
+    canLoseLife = true;
     playerShape.setPosition(m_x,m_y);
 }
 
@@ -60,7 +61,7 @@ void Player::HandleInput(float &time)
         
     }
 }
-//		if (snake.at(0).sprite().getGlobalBounds().intersects(fruit.getFruitSprite().getGlobalBounds()))
+
 
 void Player::Update(vector<Enemy*> &l)
 {
@@ -74,7 +75,38 @@ void Player::Update(vector<Enemy*> &l)
             {
                 Bullet_List.at(i)->setAlive(false);
                 l.at(j)->setStatus(false);
+                score += 10;
             }
+
+        }
+    }
+}
+
+void Player::updateLife(float &timer)
+{
+    if(canLoseLife)
+    {
+        --life;
+        canLoseLife = false;
+    }
+    else
+    {
+        if(timer > 0)
+        {
+            canLoseLife = true;
+            timer = 0;
+        }
+    }
+}
+
+void Player::Collide(vector<Enemy*> &l, float &timer)
+{
+    for(int j = 0; j < l.size(); ++j)
+    {
+        if(playerShape.getGlobalBounds().intersects(l.at(j)->getSprite().getGlobalBounds()))
+        {
+            --life;
+            l.erase(l.begin() + j);
         }
     }
 }
@@ -93,15 +125,11 @@ void Player::DrawPlayer(sf::RenderWindow & win)
         {
             Bullet_List.at(i)->DrawBullet(win);
         }
-
     }
-
 }
 
 void Player::Shoot()
 {
-    //Bullet b(m_x + 77.5 ,m_y);
-
     Bullet *temp = new Bullet(m_x + 141.5,m_y-75);
     Bullet_List.push_back(temp);
 }
